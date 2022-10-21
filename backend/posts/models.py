@@ -5,8 +5,8 @@ User = get_user_model()
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=255, blank=True)
-    body = models.TextField(blank=True)
+    title = models.CharField(max_length=255, blank=False)
+    body = models.TextField(blank=False)
     owner = models.ForeignKey(User, related_name='posts', on_delete=models.PROTECT)
     created = models.DateTimeField(auto_now_add=True)
 
