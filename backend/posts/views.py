@@ -47,7 +47,12 @@ class PostLike(generics.CreateAPIView):
 
 
 class PostUnLike(generics.DestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+
     def delete(self, request, *args, **kwargs):
         like = Like.objects.filter(owner=request.user, post=kwargs.get('pk')).first()
-        like.delete()
-        return Response({'result': 'remove like success'})
+        if like:
+            like.delete()
+            return Response({'result': 'remove like success'})
+        else:
+            return Response({'result': 'like doesn\'t exist'})
